@@ -1,0 +1,1257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>360 FitClub — Wellness Comes Full Circle</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300;1,9..40,400&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black: #080808;
+  --surface: #131210;
+  --surface-raised: #1a1917;
+  --cream: #f0ece4;
+  --cream-soft: #d8d3c9;
+  --muted: #7d7972;
+  --amber: #d4a24c;
+  --amber-bright: #e8b54e;
+  --amber-glow: rgba(212,162,76,0.15);
+  --radius: 12px;
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--black);
+  color: var(--cream);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10000;
+  opacity: 0.03;
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+::selection { background: var(--amber); color: var(--black); }
+a { text-decoration: none; color: inherit; }
+img { display: block; max-width: 100%; }
+
+.wrap { max-width: 1380px; margin: 0 auto; padding: 0 clamp(1.5rem, 4vw, 3rem); }
+.wrap-wide { max-width: 1600px; margin: 0 auto; padding: 0 clamp(1.5rem, 4vw, 3rem); }
+
+/* ═══ NAV ═══ */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 999;
+  padding: 1.5rem 0;
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  mix-blend-mode: difference;
+}
+nav.solid {
+  mix-blend-mode: normal;
+  background: rgba(8,8,8,0.92);
+  backdrop-filter: blur(24px) saturate(1.2);
+  padding: 1rem 0;
+  border-bottom: 1px solid rgba(212,162,76,0.06);
+}
+nav .wrap { display: flex; align-items: center; justify-content: space-between; }
+
+.logo {
+  font-family: 'Anton', sans-serif;
+  font-weight: 800;
+  font-size: 1.5rem;
+  letter-spacing: 0.06em;
+  display: flex;
+  align-items: baseline;
+  gap: 0.15em;
+}
+.logo em { font-style: normal; color: var(--amber); font-size: 1.7rem; }
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 2.75rem;
+  list-style: none;
+}
+.nav-links a {
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--cream);
+  transition: opacity 0.3s;
+}
+.nav-links a:hover { opacity: 0.6; }
+.nav-cta {
+  background: var(--cream) !important;
+  color: var(--black) !important;
+  padding: 0.6rem 1.6rem;
+  border-radius: 100px;
+  font-weight: 600 !important;
+  letter-spacing: 0.08em !important;
+  transition: background 0.3s, transform 0.3s !important;
+}
+.nav-cta:hover { background: var(--amber) !important; transform: scale(1.03); opacity: 1 !important; }
+
+.burger { display: none; background: none; border: none; cursor: pointer; }
+.burger span { display: block; width: 26px; height: 2px; background: var(--cream); margin: 6px 0; }
+
+/* ═══ HERO ═══ */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  overflow: hidden;
+}
+.hero-media {
+  position: absolute;
+  inset: 0;
+}
+.hero-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 25%;
+  filter: brightness(0.45) contrast(1.1) saturate(0.85);
+  will-change: transform;
+}
+.hero-media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(8,8,8,0.2) 0%, transparent 30%, transparent 50%, rgba(8,8,8,0.85) 85%, var(--black) 100%),
+    linear-gradient(90deg, rgba(8,8,8,0.5) 0%, transparent 60%);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  padding: 0 0 clamp(4rem, 8vh, 7rem);
+}
+.hero-content .wrap {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: end;
+  gap: 3rem;
+}
+
+.hero-eyebrow {
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin-bottom: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  opacity: 0;
+  animation: fadeIn 0.8s 0.2s ease forwards;
+}
+.hero-eyebrow::before {
+  content: '';
+  width: 50px;
+  height: 1px;
+  background: var(--amber);
+}
+
+.hero h1 {
+  font-family: 'Anton', sans-serif;
+  font-weight: 800;
+  font-size: clamp(3.5rem, 9.5vw, 9rem);
+  line-height: 0.9;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  opacity: 0;
+  animation: heroReveal 1s 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+.hero h1 .thin {
+  font-weight: 400;
+  -webkit-text-stroke: 1.5px var(--cream);
+  color: transparent;
+}
+.hero h1 .amber { color: var(--amber); }
+
+.hero-desc {
+  max-width: 420px;
+  margin-top: 2rem;
+  opacity: 0;
+  animation: fadeIn 0.8s 0.8s ease forwards;
+}
+.hero-desc p {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--cream-soft);
+  margin-bottom: 2rem;
+}
+
+.hero-cta-group { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: var(--amber);
+  color: var(--black);
+  padding: 0.85rem 2rem;
+  border-radius: 100px;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 600;
+  font-size: 0.85rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.btn-primary:hover { background: var(--amber-bright); transform: translateY(-2px); box-shadow: 0 12px 40px rgba(212,162,76,0.25); }
+.btn-primary svg { transition: transform 0.3s; }
+.btn-primary:hover svg { transform: translateX(3px); }
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--cream);
+  padding: 0.85rem 1.5rem;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  font-size: 0.85rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border: 1px solid rgba(240,236,228,0.2);
+  border-radius: 100px;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.btn-ghost:hover { border-color: var(--amber); color: var(--amber); }
+
+.hero-scroll {
+  text-align: right;
+  opacity: 0;
+  animation: fadeIn 0.8s 1.2s ease forwards;
+}
+.hero-scroll span {
+  writing-mode: vertical-rl;
+  font-size: 0.68rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.hero-scroll span::after {
+  content: '';
+  width: 1px;
+  height: 50px;
+  background: linear-gradient(to bottom, var(--amber), transparent);
+  animation: scrollPulse 2s ease-in-out infinite;
+}
+
+@keyframes heroReveal {
+  from { opacity: 0; transform: translateY(60px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes scrollPulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
+
+/* ═══ MARQUEE ═══ */
+.marquee {
+  padding: 1.5rem 0;
+  border-top: 1px solid rgba(240,236,228,0.05);
+  border-bottom: 1px solid rgba(240,236,228,0.05);
+  overflow: hidden;
+}
+.marquee-track {
+  display: flex;
+  gap: 4rem;
+  animation: marquee 25s linear infinite;
+  width: max-content;
+}
+.marquee-item {
+  font-family: 'Anton', sans-serif;
+  font-weight: 700;
+  font-size: 0.82rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 4rem;
+}
+.marquee-item::after {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--amber);
+  flex-shrink: 0;
+}
+@keyframes marquee { to { transform: translateX(-50%); } }
+
+/* ═══ PHILOSOPHY ═══ */
+.philosophy { padding: clamp(6rem, 12vh, 10rem) 0; }
+.philosophy .wrap {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6rem;
+  align-items: center;
+}
+
+.phil-eyebrow {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin-bottom: 2rem;
+}
+.phil-left h2 {
+  font-family: 'Anton', sans-serif;
+  font-weight: 800;
+  font-size: clamp(2.25rem, 4.5vw, 3.75rem);
+  line-height: 0.95;
+  text-transform: uppercase;
+  margin-bottom: 2.5rem;
+}
+.phil-left h2 .serif-accent {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 400;
+  font-style: italic;
+  text-transform: none;
+  color: var(--amber);
+  font-size: 1.15em;
+}
+.phil-text {
+  color: var(--muted);
+  font-size: 0.95rem;
+  line-height: 1.85;
+  max-width: 460px;
+}
+.phil-text strong { color: var(--cream-soft); font-weight: 500; }
+
+.phil-image-stack {
+  position: relative;
+  aspect-ratio: 3/4;
+}
+.phil-img-main {
+  width: 85%;
+  height: 100%;
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.phil-img-main img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.8) contrast(1.05) saturate(0.9);
+  transition: transform 8s ease;
+}
+.phil-img-main:hover img { transform: scale(1.05); }
+
+.phil-img-float {
+  position: absolute;
+  bottom: -2rem;
+  right: -1rem;
+  width: 55%;
+  aspect-ratio: 4/3;
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 3px solid var(--black);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+}
+.phil-img-float img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.75) contrast(1.1) saturate(0.85);
+}
+
+.phil-quote-card {
+  position: absolute;
+  top: -1.5rem;
+  right: -2rem;
+  background: var(--amber);
+  color: var(--black);
+  padding: 1.75rem 2rem;
+  border-radius: var(--radius);
+  max-width: 260px;
+  box-shadow: 0 20px 50px rgba(212,162,76,0.2);
+}
+.phil-quote-card p {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 1.1rem;
+  line-height: 1.5;
+  font-weight: 500;
+}
+.phil-quote-card .attr {
+  font-family: 'DM Sans', sans-serif;
+  font-style: normal;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-top: 0.75rem;
+  opacity: 0.6;
+}
+
+/* ═══ PILLARS ═══ */
+.pillars { padding: clamp(4rem, 8vh, 6rem) 0 clamp(6rem, 12vh, 10rem); }
+.pillars-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 4rem;
+  gap: 2rem;
+}
+.pillars-head h2 {
+  font-family: 'Anton', sans-serif;
+  font-weight: 800;
+  font-size: clamp(2rem, 4vw, 3.25rem);
+  text-transform: uppercase;
+  line-height: 1;
+}
+.pillars-head h2 .serif-accent {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 400;
+  font-style: italic;
+  text-transform: none;
+  color: var(--amber);
+  font-size: 1.15em;
+}
+.pillars-head p {
+  color: var(--muted);
+  font-size: 0.9rem;
+  max-width: 340px;
+  line-height: 1.7;
+  text-align: right;
+}
+
+.pillars-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: rgba(240,236,228,0.06);
+  border: 1px solid rgba(240,236,228,0.06);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.pillar-item {
+  background: var(--surface);
+  padding: clamp(2rem, 3vw, 3rem);
+  position: relative;
+  transition: background 0.5s;
+  cursor: default;
+}
+.pillar-item:hover { background: var(--surface-raised); }
+
+.pillar-num {
+  font-family: 'Anton', sans-serif;
+  font-weight: 800;
+  font-size: 5rem;
+  line-height: 1;
+  color: rgba(240,236,228,0.03);
+  position: absolute;
+  top: 1rem;
+  right: 1.5rem;
+  transition: color 0.5s;
+}
+.pillar-item:hover .pillar-num { color: var(--amber-glow); }
+
+.pillar-icon-wrap {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: rgba(212,162,76,0.08);
+  border: 1px solid rgba(212,162,76,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.75rem;
+  transition: background 0.4s, border-color 0.4s;
+}
+.pillar-item:hover .pillar-icon-wrap {
+  background: rgba(212,162,76,0.12);
+  border-color: rgba(212,162,76,0.2);
+}
+.pillar-icon-wrap svg { width: 20px; height: 20px; stroke: var(--amber); fill: none; stroke-width: 1.5; }
+
+.pillar-item h3 {
+  font-family: 'Anton', sans-serif;
+  font-weight: 700;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.85rem;
+}
+.pillar-item p {
+  font-size: 0.88rem;
+  color: var(--muted);
+  line-height: 1.75;
+}
+.pillar-line {
+  width: 30px;
+  height: 2px;
+  background: var(--amber);
+  margin-top: 1.5rem;
+  border-radius: 1px;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.pillar-item:hover .pillar-line { transform: scaleX(1); }
+
+/* ═══ PROGRAMS ═══ */
+.programs {
+  padding: clamp(6rem, 10vh, 8rem) 0;
+  background: var(--surface);
+  position: relative;
+}
+.programs::before, .programs::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(212,162,76,0.12), transparent);
+}
+.programs::before { top: 0; }
+.programs::after { bottom: 0; }
+
+.programs-eyebrow {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin-bottom: 1.25rem;
+}
+.programs-title-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: 3.5rem;
+}
+.programs-title-row h2 {
+  font-family: 'Anton', sans-serif;
+  font-weight: 800;
+  font-size: clamp(2rem, 4vw, 3.25rem);
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+.programs-scroll {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+.program-card {
+  border-radius: var(--radius);
+  overflow: hidden;
+  position: relative;
+  aspect-ratio: 3/4;
+  cursor: pointer;
+}
+.program-card-img {
+  position: absolute;
+  inset: 0;
+}
+.program-card-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.5) contrast(1.05) saturate(0.8);
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s;
+}
+.program-card:hover .program-card-img img {
+  transform: scale(1.08);
+  filter: brightness(0.4) contrast(1.1) saturate(0.9);
+}
+.program-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 30%, rgba(8,8,8,0.9) 100%);
+  pointer-events: none;
+}
+
+.program-card-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 2.5rem;
+  z-index: 2;
+}
+.program-badge {
+  display: inline-block;
+  background: rgba(212,162,76,0.15);
+  border: 1px solid rgba(212,162,76,0.25);
+  color: var(--amber);
+  padding: 0.3rem 0.85rem;
+  border-radius: 100px;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+.program-card-content h3 {
+  font-family: 'Anton', sans-serif;
+  font-weight: 700;
+  font-size: 1.4rem;
+  text-transform: uppercase;
+  margin-bottom: 0.6rem;
+}
+.program-card-content p {
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: var(--cream-soft);
+  margin-bottom: 1.25rem;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.5s 0.1s;
+}
+.program-card:hover .program-card-content p { opacity: 1; transform: translateY(0); }
+.program-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid rgba(240,236,228,0.2);
+  transition: all 0.4s;
+}
+.program-arrow svg { width: 18px; height: 18px; stroke: var(--cream); fill: none; stroke-width: 2; }
+.program-card:hover .program-arrow { background: var(--amber); border-color: var(--amber); }
+.program-card:hover .program-arrow svg { stroke: var(--black); }
+
+/* ═══ COMMUNITY ═══ */
+.community { padding: clamp(6rem, 12vh, 10rem) 0; }
+.community .wrap-wide {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  align-items: stretch;
+  min-height: 600px;
+}
+.comm-image {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius) 0 0 var(--radius);
+}
+.comm-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.65) contrast(1.05) saturate(0.85);
+}
+.comm-image-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent 60%, var(--surface) 100%);
+}
+.comm-content {
+  background: var(--surface);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  padding: clamp(3rem, 5vw, 5rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.comm-eyebrow {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin-bottom: 2rem;
+}
+.comm-content h2 {
+  font-family: 'Anton', sans-serif;
+  font-weight: 800;
+  font-size: clamp(2rem, 4vw, 3rem);
+  text-transform: uppercase;
+  line-height: 0.95;
+  margin-bottom: 1.75rem;
+}
+.comm-content h2 .serif-accent {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 400;
+  font-style: italic;
+  text-transform: none;
+  color: var(--amber);
+  font-size: 1.1em;
+  display: block;
+}
+.comm-content > p {
+  color: var(--muted);
+  font-size: 0.95rem;
+  line-height: 1.8;
+  margin-bottom: 2.5rem;
+}
+
+.comm-stats {
+  display: flex;
+  gap: 2.5rem;
+  margin-bottom: 2.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(240,236,228,0.06);
+}
+.comm-stat-num {
+  font-family: 'Anton', sans-serif;
+  font-weight: 800;
+  font-size: 2.5rem;
+  line-height: 1;
+  color: var(--amber);
+}
+.comm-stat-label {
+  font-size: 0.75rem;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-top: 0.35rem;
+}
+
+/* ═══ TESTIMONIAL ═══ */
+.testimonial {
+  padding: clamp(5rem, 10vh, 8rem) 0;
+  text-align: center;
+  position: relative;
+}
+.testimonial::before {
+  content: '\201C';
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 12rem;
+  color: rgba(212,162,76,0.06);
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  line-height: 1;
+  pointer-events: none;
+}
+.testimonial blockquote {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  line-height: 1.5;
+  max-width: 800px;
+  margin: 0 auto 2rem;
+  color: var(--cream);
+}
+.testimonial cite {
+  font-family: 'DM Sans', sans-serif;
+  font-style: normal;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--amber);
+}
+
+/* ═══ CTA ═══ */
+.cta {
+  padding: clamp(6rem, 12vh, 10rem) 0;
+  position: relative;
+  overflow: hidden;
+}
+.cta-bg {
+  position: absolute;
+  inset: 0;
+}
+.cta-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.2) contrast(1.1) saturate(0.6);
+}
+.cta-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, rgba(8,8,8,0.5), rgba(8,8,8,0.85));
+}
+.cta .wrap {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+}
+.cta h2 {
+  font-family: 'Anton', sans-serif;
+  font-weight: 800;
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  text-transform: uppercase;
+  line-height: 0.95;
+  margin-bottom: 1.5rem;
+}
+.cta h2 .serif-accent {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 400;
+  font-style: italic;
+  text-transform: none;
+  color: var(--amber);
+  font-size: 1.05em;
+}
+.cta > .wrap > p {
+  color: var(--cream-soft);
+  font-size: 1.05rem;
+  line-height: 1.7;
+  max-width: 520px;
+  margin: 0 auto 2.5rem;
+}
+.cta-buttons { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+
+/* ═══ NEWSLETTER ═══ */
+.newsletter {
+  padding: 4rem 0;
+  border-top: 1px solid rgba(240,236,228,0.04);
+}
+.newsletter .wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 3rem;
+}
+.newsletter h3 {
+  font-family: 'Anton', sans-serif;
+  font-weight: 700;
+  font-size: 1.3rem;
+  text-transform: uppercase;
+}
+.newsletter h3 .amber { color: var(--amber); }
+.newsletter p { color: var(--muted); font-size: 0.85rem; margin-top: 0.25rem; }
+.nl-form { display: flex; gap: 0.5rem; }
+.nl-form input {
+  background: var(--surface);
+  border: 1px solid rgba(240,236,228,0.08);
+  border-radius: 100px;
+  padding: 0.8rem 1.5rem;
+  color: var(--cream);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9rem;
+  width: 280px;
+  outline: none;
+  transition: border-color 0.3s;
+}
+.nl-form input::placeholder { color: var(--muted); }
+.nl-form input:focus { border-color: var(--amber); }
+
+/* ═══ FOOTER ═══ */
+footer {
+  padding: 5rem 0 2rem;
+  border-top: 1px solid rgba(240,236,228,0.04);
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1.2fr;
+  gap: 3rem;
+  margin-bottom: 4rem;
+}
+.footer-brand .logo { margin-bottom: 1rem; }
+.footer-brand > p { color: var(--muted); font-size: 0.88rem; line-height: 1.7; max-width: 280px; }
+
+.footer-col h4 {
+  font-family: 'Anton', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+}
+.footer-col a {
+  display: block;
+  color: var(--muted);
+  font-size: 0.88rem;
+  margin-bottom: 0.75rem;
+  transition: color 0.3s;
+}
+.footer-col a:hover { color: var(--amber); }
+
+.footer-bottom {
+  border-top: 1px solid rgba(240,236,228,0.04);
+  padding-top: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.footer-bottom span { font-size: 0.75rem; color: var(--muted); }
+.footer-social { display: flex; gap: 1.25rem; }
+.footer-social a {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  border: 1px solid rgba(240,236,228,0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.3s, background 0.3s;
+}
+.footer-social a:hover { border-color: var(--amber); background: rgba(212,162,76,0.08); }
+.footer-social a svg { width: 16px; height: 16px; fill: var(--cream-soft); }
+
+/* ═══ Scroll Reveals ═══ */
+.reveal {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal.vis { opacity: 1; transform: translateY(0); }
+.reveal-d1 { transition-delay: 0.1s; }
+.reveal-d2 { transition-delay: 0.2s; }
+.reveal-d3 { transition-delay: 0.3s; }
+.reveal-d4 { transition-delay: 0.4s; }
+
+/* ═══ Responsive ═══ */
+@media (max-width: 1100px) {
+  .pillars-grid { grid-template-columns: repeat(2, 1fr); }
+  .programs-scroll { grid-template-columns: 1fr 1fr; }
+  .programs-scroll .program-card:nth-child(3) { display: none; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 900px) {
+  .philosophy .wrap { grid-template-columns: 1fr; gap: 3rem; }
+  .phil-image-stack { max-width: 500px; }
+  .community .wrap-wide { grid-template-columns: 1fr; }
+  .comm-image { border-radius: var(--radius) var(--radius) 0 0; min-height: 350px; }
+  .comm-image-overlay { background: linear-gradient(180deg, transparent 50%, var(--surface) 100%); }
+  .comm-content { border-radius: 0 0 var(--radius) var(--radius); }
+  .hero-content .wrap { grid-template-columns: 1fr; }
+  .hero-scroll { display: none; }
+}
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .burger { display: block; }
+  .pillars-grid { grid-template-columns: 1fr; }
+  .programs-scroll { grid-template-columns: 1fr; max-width: 420px; margin: 0 auto; }
+  .programs-scroll .program-card:nth-child(3) { display: block; }
+  .program-card-content p { opacity: 1; transform: none; }
+  .pillars-head { flex-direction: column; align-items: flex-start; }
+  .pillars-head p { text-align: left; }
+  .newsletter .wrap { flex-direction: column; text-align: center; }
+  .nl-form { flex-direction: column; width: 100%; }
+  .nl-form input { width: 100%; }
+  .comm-stats { gap: 1.5rem; flex-wrap: wrap; }
+  .footer-grid { grid-template-columns: 1fr; }
+  .footer-bottom { flex-direction: column; gap: 1rem; }
+  .programs-title-row { flex-direction: column; align-items: flex-start; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="wrap">
+    <a href="#" class="logo"><em>360</em>FITCLUB</a>
+    <ul class="nav-links">
+      <li><a href="#philosophy">Philosophy</a></li>
+      <li><a href="#pillars">Pillars</a></li>
+      <li><a href="#programs">Programs</a></li>
+      <li><a href="#community">Community</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="#" class="nav-cta">Join the Club</a></li>
+    </ul>
+    <button class="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-media">
+    <img src="images/hero.jpg" alt="360 FitClub community workout">
+  </div>
+  <div class="hero-content">
+    <div class="wrap">
+      <div>
+        <div class="hero-eyebrow">Atlanta's Community Fitness Club</div>
+        <h1>WELLNESS<br><span class="thin">COMES</span><br><span class="amber">FULL CIRCLE</span></h1>
+        <div class="hero-desc">
+          <p>More than a gym. A community built on connection, motivation, and a shared commitment to living stronger — together.</p>
+          <div class="hero-cta-group">
+            <a href="#" class="btn-primary">Join the Club <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+            <a href="#programs" class="btn-ghost">Our Programs</a>
+          </div>
+        </div>
+      </div>
+      <div class="hero-scroll"><span>Scroll</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee">
+  <div class="marquee-track">
+    <span class="marquee-item">Movement</span>
+    <span class="marquee-item">Nutrition</span>
+    <span class="marquee-item">Mindset</span>
+    <span class="marquee-item">Lifestyle</span>
+    <span class="marquee-item">Community</span>
+    <span class="marquee-item">Wellness</span>
+    <span class="marquee-item">Strength</span>
+    <span class="marquee-item">360°</span>
+    <span class="marquee-item">Movement</span>
+    <span class="marquee-item">Nutrition</span>
+    <span class="marquee-item">Mindset</span>
+    <span class="marquee-item">Lifestyle</span>
+    <span class="marquee-item">Community</span>
+    <span class="marquee-item">Wellness</span>
+    <span class="marquee-item">Strength</span>
+    <span class="marquee-item">360°</span>
+  </div>
+</div>
+
+<!-- PHILOSOPHY -->
+<section class="philosophy" id="philosophy">
+  <div class="wrap">
+    <div class="phil-left reveal">
+      <div class="phil-eyebrow">The 360 Approach</div>
+      <h2>FITNESS IS NOT<br>A FINISH LINE —<br><span class="serif-accent">it's a state of being.</span></h2>
+      <p class="phil-text">The number <strong>"360"</strong> represents completeness. A full circle. We believe true fitness includes physical strength, intelligent nutrition, balanced lifestyle choices, and a resilient mindset.<br><br>When these elements work together, <strong>real and lasting transformation happens.</strong> We design experiences that support the whole person, not just workouts.</p>
+    </div>
+    <div class="phil-right reveal reveal-d2">
+      <div class="phil-image-stack">
+        <div class="phil-img-main">
+          <img src="images/philosophy-main.jpg" alt="Fitness training">
+        </div>
+        <div class="phil-img-float">
+          <img src="images/philosophy-float.jpg" alt="Community fitness class">
+        </div>
+        <div class="phil-quote-card">
+          <p>"Fitness is not just about how you move — it's about how you live."</p>
+          <div class="attr">— 360 FitClub</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PILLARS -->
+<section class="pillars" id="pillars">
+  <div class="wrap">
+    <div class="pillars-head reveal">
+      <h2>The Four Pillars.<br><span class="serif-accent">One Full Circle.</span></h2>
+      <p>When movement, nutrition, mindset, and lifestyle work together, real transformation happens.</p>
+    </div>
+    <div class="pillars-grid">
+      <div class="pillar-item reveal reveal-d1">
+        <div class="pillar-num">01</div>
+        <div class="pillar-icon-wrap">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="3"/><path d="M6.5 8C4 10 3 14 3 17h18c0-3-1-7-3.5-9"/><path d="M9 17v4m6-4v4"/></svg>
+        </div>
+        <h3>Movement</h3>
+        <p>Group fitness experiences designed to challenge every body and celebrate every level — from first-timers to long-time members.</p>
+        <div class="pillar-line"></div>
+      </div>
+      <div class="pillar-item reveal reveal-d2">
+        <div class="pillar-num">02</div>
+        <div class="pillar-icon-wrap">
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><path d="M9 9h.01M15 9h.01"/></svg>
+        </div>
+        <h3>Nutrition</h3>
+        <p>Intelligent nutrition isn't about restriction — it's about fueling a full life with knowledge and support to sustain energy and strength.</p>
+        <div class="pillar-line"></div>
+      </div>
+      <div class="pillar-item reveal reveal-d3">
+        <div class="pillar-num">03</div>
+        <div class="pillar-icon-wrap">
+          <svg viewBox="0 0 24 24"><path d="M12 2a8 8 0 0 1 8 8c0 3.5-2 6-4 8l-4 4-4-4c-2-2-4-4.5-4-8a8 8 0 0 1 8-8z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <h3>Mindset</h3>
+        <p>A resilient mindset is a muscle. We foster an environment where mental toughness and self-confidence grow alongside physical strength.</p>
+        <div class="pillar-line"></div>
+      </div>
+      <div class="pillar-item reveal reveal-d4">
+        <div class="pillar-num">04</div>
+        <div class="pillar-icon-wrap">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        </div>
+        <h3>Lifestyle</h3>
+        <p>360 FitClub supports how you live, rest, connect, and show up for yourself — not just how you work out.</p>
+        <div class="pillar-line"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROGRAMS -->
+<section class="programs" id="programs">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="programs-eyebrow">What We Offer</div>
+      <div class="programs-title-row">
+        <h2>Our Programs</h2>
+        <a href="#" class="btn-ghost">View All</a>
+      </div>
+    </div>
+    <div class="programs-scroll">
+      <div class="program-card reveal reveal-d1">
+        <div class="program-card-img">
+          <img src="images/program-group.jpg" alt="Group fitness class">
+        </div>
+        <div class="program-card-content">
+          <div class="program-badge">Most Popular</div>
+          <h3>Group Fitness</h3>
+          <p>High-energy classes where the group pushes you further than you'd go alone.</p>
+          <div class="program-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+        </div>
+      </div>
+      <div class="program-card reveal reveal-d2">
+        <div class="program-card-img">
+          <img src="images/program-nutrition.jpg" alt="Nutrition coaching">
+        </div>
+        <div class="program-card-content">
+          <div class="program-badge">Fuel Your Circle</div>
+          <h3>Nutrition Coaching</h3>
+          <p>Practical tools to eat with intention, build energy, and support every goal.</p>
+          <div class="program-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+        </div>
+      </div>
+      <div class="program-card reveal reveal-d3">
+        <div class="program-card-img">
+          <img src="images/program-mindset.jpg" alt="Mindset and recovery">
+        </div>
+        <div class="program-card-content">
+          <div class="program-badge">Recovery</div>
+          <h3>Mindset &amp; Recovery</h3>
+          <p>Strength is built in the mind as well as the body. Show up fully — for the gym and for life.</p>
+          <div class="program-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMMUNITY -->
+<section class="community" id="community">
+  <div class="wrap-wide">
+    <div class="comm-image">
+      <img src="images/community.jpg" alt="Community workout">
+      <div class="comm-image-overlay"></div>
+    </div>
+    <div class="comm-content reveal">
+      <div class="comm-eyebrow">The Circle</div>
+      <h2>YOU DON'T JUST<br>TRAIN HERE.<span class="serif-accent">You belong here.</span></h2>
+      <p>By design, our members don't just work out at 360 FitClub — they belong here. A community built on connection, mutual motivation, and a shared commitment to growth. Whatever stage of life you're in, there's a place for you in our circle.</p>
+      <div class="comm-stats">
+        <div><div class="comm-stat-num">360°</div><div class="comm-stat-label">Complete Wellness</div></div>
+        <div><div class="comm-stat-num">4</div><div class="comm-stat-label">Pillars of Health</div></div>
+        <div><div class="comm-stat-num">1</div><div class="comm-stat-label">United Community</div></div>
+      </div>
+      <a href="#" class="btn-primary">Join Our Community <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIAL -->
+<section class="testimonial reveal">
+  <div class="wrap">
+    <blockquote>"360 FitClub changed the way I think about fitness. It's not just the workouts — it's the people, the energy, the mindset. I walked in looking for a gym and found a family."</blockquote>
+    <cite>— 360 FitClub Member, Atlanta</cite>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta" id="contact">
+  <div class="cta-bg">
+    <img src="images/cta.jpg" alt="Fitness motivation">
+  </div>
+  <div class="wrap">
+    <h2>COME SEE WHAT<br><span class="serif-accent">Full Circle</span> FEELS LIKE.</h2>
+    <p>Ready to experience a complete approach to fitness? Join the community that's redefining what it means to be well.</p>
+    <div class="cta-buttons">
+      <a href="#" class="btn-primary">Join the Club <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      <a href="#" class="btn-ghost">Contact Us</a>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="newsletter">
+  <div class="wrap">
+    <div class="reveal">
+      <h3>Join the <span class="amber">Circle.</span></h3>
+      <p>Class updates, wellness tips, and community news — straight to your inbox.</p>
+    </div>
+    <div class="nl-form reveal reveal-d1">
+      <input type="email" placeholder="Enter your email">
+      <button class="btn-primary" type="submit">Subscribe</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#" class="logo"><em>360</em>FITCLUB</a>
+        <p>A community built on connection, motivation, and a shared commitment to living stronger — together.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navigate</h4>
+        <a href="#">Home</a><a href="#">About</a><a href="#">Classes</a><a href="#">Blog</a><a href="#">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h4>Programs</h4>
+        <a href="#">Group Fitness</a><a href="#">Nutrition Coaching</a><a href="#">Mindset & Recovery</a><a href="#">Lifestyle Design</a>
+      </div>
+      <div class="footer-col">
+        <h4>Connect</h4>
+        <a href="#">Atlanta, GA</a><a href="#"><span class="__cf_email__" data-cfemail="6d05080101022d5e5b5d0b04190e01180f430e0200">[email&#160;protected]</span></a><a href="#">+1 (404) 360-0000</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 360 FitClub. All rights reserved.</span>
+      <div class="footer-social">
+        <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M7.5 2h9A5.5 5.5 0 0 1 22 7.5v9a5.5 5.5 0 0 1-5.5 5.5h-9A5.5 5.5 0 0 1 2 16.5v-9A5.5 5.5 0 0 1 7.5 2zm4.5 5a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0 2a3 3 0 1 1 0 6 3 3 0 0 1 0-6zm5.25-2.5a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/></svg></a>
+        <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+        <a href="#" aria-label="Twitter"><svg viewBox="0 0 24 24"><path d="M4 4l6.8 9.2L4 20h2l5.7-5.6L16 20h5l-7.2-9.8L20 4h-2l-5.3 5.2L9 4H4zm3 2h2l7 10h-2L7 6z"/></svg></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+const nav = document.getElementById('navbar');
+window.addEventListener('scroll', () => { nav.classList.toggle('solid', window.scrollY > 80); }, { passive: true });
+
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('vis'); });
+}, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const t = document.querySelector(a.getAttribute('href'));
+    if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
+  });
+});
+
+let ticking = false;
+window.addEventListener('scroll', () => {
+  if (!ticking) {
+    requestAnimationFrame(() => {
+      const h = document.querySelector('.hero-media img');
+      if (h && w
