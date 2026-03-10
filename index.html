@@ -1254,4 +1254,14 @@ window.addEventListener('scroll', () => {
   if (!ticking) {
     requestAnimationFrame(() => {
       const h = document.querySelector('.hero-media img');
-      if (h && w
+      if (h && window.scrollY < window.innerHeight) {
+        h.style.transform = 'translateY(' + (window.scrollY * 0.25) + 'px)';
+      }
+      ticking = false;
+    });
+    ticking = true;
+  }
+}, { passive: true });
+</script>
+</body>
+</html>
